@@ -1,0 +1,89 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+    <div class="container-fluid">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <button class="btn btn-outline-success me-2" type="button" (click)="getAllProducts()">All</button>
+        </li>
+        <li class="nav-item">
+          <button class="btn btn-outline-success me-2" type="button" (click)="getSelectedProducts()">Selected</button>
+        </li>
+        <li class="nav-item">
+          <button class="btn btn-outline-success me-2" type="button" (click)="getAvailableProducts()">Available</button>
+        </li>
+        <li class="nav-item">
+          <a  routerLink="/form" ><button class="btn btn-outline-success me-2" type="button" >Form</button></a>
+        </li>
+      </ul>
+  
+      <!-- Search form -->
+      <form class="d-flex" (ngSubmit)="onSubmit()">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" [formControl]="productName">
+        <button class="btn btn-outline-info" type="submit" >
+          <i class="fa fa-search"></i> <!-- Make sure FontAwesome is available for icons -->
+        </button>
+      </form>
+    </div>
+  </nav>
+  
+  <!-- Product Table -->
+  <div class="container" *ngIf="products$ | async as result" [ngSwitch]="result.dataState">
+  
+    <!-- Error State -->
+    <ng-container *ngSwitchCase="DataStateEnum.ERROR">
+      <div class="alert alert-danger" role="alert">
+        Error: {{ result.errorMessage }}
+      </div>
+    </ng-container>
+  
+    <!-- Loading State -->
+    <ng-container *ngSwitchCase="DataStateEnum.LOADING">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p>Loading products...</p>
+    </ng-container>
+  
+    <!-- Loaded State -->
+    <ng-container *ngSwitchCase="DataStateEnum.LOADED">
+      <table class="table table-striped table-bordered">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Selected</th>
+            <th scope="col">Available</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of result.data">
+            <th scope="row">{{ product.id }}</th>
+            <td>{{ product.name }}</td>
+            <td>${{ product.price }}</td>
+            <td>{{ product.quantity }}</td>
+            <td>{{ product.selected }}</td>
+            <td>{{ product.available }}</td>
+            <td>
+              <button  type="button" [ngClass]="product.selected?'btn btn-outline-danger me-2':'btn btn-outline-success me-2'" (click)="OnSelect(product)">
+                     <span *ngIf="product.selected" >Unselect</span>
+                     <span *ngIf="!product.selected" >Select</span>
+              </button>
+            </td>
+            <td>
+             
+          </td>
+          <td>
+            <button class="btn btn-outline-danger me-2" (click)="OnDelete(product)">
+              <span class="fa fa-trash-o"></span>
+            </button>
+             
+          </td>
+
+          </tr>
+        </tbody>
+      </table>
+    </ng-container>
+  </div>
+  
