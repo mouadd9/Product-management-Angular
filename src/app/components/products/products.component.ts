@@ -1,28 +1,29 @@
 import { Component } from '@angular/core';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductsService } from '../../services/products.service';
 import { Product } from '../../models/product.model';
 import { CommonModule } from '@angular/common';
 import { Observable, startWith, map, catchError, of, tap } from 'rxjs';
-import { AppDataState, DataStateEnum } from '../../state/product.state';
+import { ActionEvent, AppDataState, DataStateEnum, ProductActionsType } from '../../state/product.state';
 import { RouterModule } from '@angular/router';
+import { ProductsNavBarComponent } from './products-nav-bar/products-nav-bar.component';
+import { ProductsListComponent } from './products-list/products-list.component';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule, ProductsNavBarComponent, ProductsListComponent],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
+// This component will be responsible for calling the service and storing the observable.
 
-export class ProductsComponent {
+export class ProductsComponent { 
 
-  DataStateEnum = DataStateEnum;
+
   products$ : Observable<AppDataState<Product[]>> | null = null; // here products$ will hold an Observable that emits the DataState 
-  productName = new FormControl('');
-  constructor(private productService : ProductsService){
-    
-  }
+  
+  constructor(private productService : ProductsService){}
  
   getAllProducts(){
     // here we will uses our service to get the observable that emits the array of products 
@@ -90,8 +91,8 @@ export class ProductsComponent {
     );
   }
 
-  onSubmit() {
-    this.products$  = this.productService.searchProduct(this.productName.value).pipe(
+  onSubmit(keyword:any) {
+    this.products$  = this.productService.searchProduct(keyword).pipe(
       tap(
         data => {
           console.log('Data from search:', data);
@@ -124,7 +125,7 @@ export class ProductsComponent {
     )
     }
 
-    OnDelete(p:Product){
+  OnDelete(p:Product){
       this.productService.deleteProduct(p).subscribe({
         next : data=> {
           this.getAllProducts();
@@ -133,6 +134,33 @@ export class ProductsComponent {
       })
   
 
+  }
+
+
+  // une method pour ecouter des evenement 
+  receiveEvent($event: ActionEvent) {
+
+    switch ($event.type) {
+      case ProductActionsType.GET_ALL_PRODUCTS: this.getAllProducts();
+        
+        break;
+        case ProductActionsType.GET_AVAILABLE_PRODUCTS:  this.getAvailableProducts();
+        
+        break;
+        case ProductActionsType.GET_SELECTED_PRODUCTS:this.getSelectedProducts();
+        
+        break;
+        case ProductActionsType.SEARCH_PRODUCTS: this.onSubmit($event.payload)
+        
+        break;
+        case ProductActionsType.DELETE_PRODUCT: this.OnDelete($event.payload)
+        
+        break;
+        case ProductActionsType.SELECT_PRODUCT: this.OnSelect($event.payload)
+        
+        break; 
     }
+    
+  }
 
 }

@@ -1,0 +1,26 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+    <div class="container-fluid">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <button class="btn btn-outline-success me-2" type="button" (click)="getAllProducts()">All</button>
+        </li>
+        <li class="nav-item">
+          <button class="btn btn-outline-success me-2" type="button" (click)="getSelectedProducts()">Selected</button>
+        </li>
+        <li class="nav-item">
+          <button class="btn btn-outline-success me-2" type="button" (click)="getAvailableProducts()">Available</button>
+        </li>
+        <li class="nav-item">
+          <a  routerLink="/form" ><button class="btn btn-outline-success me-2" type="button" >Form</button></a>
+        </li>
+      </ul>
+  
+      <!-- Search form -->
+      <form class="d-flex" (ngSubmit)="onSubmit()">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" [formControl]="productName">
+        <button class="btn btn-outline-info" type="submit" >
+          <i class="fa fa-search"></i> <!-- Make sure FontAwesome is available for icons -->
+        </button>
+      </form>
+    </div>
+  </nav>
