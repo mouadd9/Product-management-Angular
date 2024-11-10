@@ -1,7 +1,5 @@
 ![1_AaFR06T8FlnJUBrCb4vrFA](https://github.com/user-attachments/assets/1a4ff162-bc3b-4d93-b57d-74b3bcea62fe)
 
-
-
 ---
 
 ### **Application Overview**
@@ -18,8 +16,6 @@
 ---
 
 ### **Application Structure**
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/e99c4126-619d-41ec-a6dd-189a137b9f71/4bf2dddf-a64b-4d0f-9153-9c75368c7c8a/image.png)
 
 ### **1. Root Component (`AppComponent`)**
 
