@@ -418,9 +418,6 @@
 ---
 
 ### **Conclusion**
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/e99c4126-619d-41ec-a6dd-189a137b9f71/643cd84b-d348-4de8-b460-b9bec41aace3/image.png)
-
 By structuring your application using `@Input` and `@Output`, and by dividing responsibilities among different components, you've created a maintainable and scalable Angular application. This architecture not only helps in understanding component communication but also sets a strong foundation for building more complex applications in the future.
 
 Remember, the key takeaways are:
