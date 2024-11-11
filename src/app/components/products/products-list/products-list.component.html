@@ -34,7 +34,6 @@
             <app-product-item 
             *ngFor="let product of result.data" 
             [product]="product" 
-            (eventEmitter)="receiveEvent($event)"
             style="display: contents;">
           </app-product-item> 
          
