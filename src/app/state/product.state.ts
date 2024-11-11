@@ -9,9 +9,8 @@ export enum ProductActionsType {
     SELECT_PRODUCT
 } 
 
-// we will use another structure in order to send a payload in the emited message 
-// we will emit objects of this type
 
+// this is the structure of an Event , it has a type and a payload
 export interface ActionEvent{
     type:ProductActionsType , // here we specify what type of action we want to do 
     payload:any
