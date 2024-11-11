@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductsService } from '../../services/products.service';
 import { Product } from '../../models/product.model';
 import { CommonModule } from '@angular/common';
-import { Observable, startWith, map, catchError, of, tap } from 'rxjs';
+import { Observable, startWith, map, catchError, of, tap, Subscription } from 'rxjs';
 import { ActionEvent, AppDataState, DataStateEnum, ProductActionsType } from '../../state/product.state';
 import { RouterModule } from '@angular/router';
 import { ProductsNavBarComponent } from './products-nav-bar/products-nav-bar.component';
 import { ProductsListComponent } from './products-list/products-list.component';
+import { EventBusService } from '../../services/event-bus.service';
 
 @Component({
   selector: 'app-products',
@@ -18,12 +19,20 @@ import { ProductsListComponent } from './products-list/products-list.component';
 })
 // This component will be responsible for calling the service and storing the observable.
 
-export class ProductsComponent { 
+export class ProductsComponent implements OnInit { 
 
-
+  private eventSubscription!: Subscription;
   products$ : Observable<AppDataState<Product[]>> | null = null; // here products$ will hold an Observable that emits the DataState 
   
-  constructor(private productService : ProductsService){}
+  constructor(private productService : ProductsService, private eventBusService: EventBusService){}
+
+  ngOnInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    this.eventSubscription = this.eventBusService.event$.subscribe((event : ActionEvent) => {
+      this.eventRouter(event);
+    })
+    
+  }
  
   getAllProducts(){
     // here we will uses our service to get the observable that emits the array of products 
@@ -137,10 +146,10 @@ export class ProductsComponent {
   }
 
 
-  // une method pour ecouter des evenement 
-  receiveEvent($event: ActionEvent) {
+  // this method subscribes to the observable in the EventBusService and listens for incoming events and then routes to an appropiate method 
+  eventRouter(event: ActionEvent) {
 
-    switch ($event.type) {
+    switch (event.type) {
       case ProductActionsType.GET_ALL_PRODUCTS: this.getAllProducts();
         
         break;
@@ -150,17 +159,23 @@ export class ProductsComponent {
         case ProductActionsType.GET_SELECTED_PRODUCTS:this.getSelectedProducts();
         
         break;
-        case ProductActionsType.SEARCH_PRODUCTS: this.onSubmit($event.payload)
+        case ProductActionsType.SEARCH_PRODUCTS: this.onSubmit(event.payload)
         
         break;
-        case ProductActionsType.DELETE_PRODUCT: this.OnDelete($event.payload)
+        case ProductActionsType.DELETE_PRODUCT: this.OnDelete(event.payload)
         
         break;
-        case ProductActionsType.SELECT_PRODUCT: this.OnSelect($event.payload)
+        case ProductActionsType.SELECT_PRODUCT: this.OnSelect(event.payload)
         
         break; 
     }
     
+  }
+  ngOnDestroy(): void {
+    // Unsubscribe to avoid memory leaks
+    if (this.eventSubscription) {
+      this.eventSubscription.unsubscribe();
+    }
   }
 
 }

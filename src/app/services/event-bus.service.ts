@@ -26,3 +26,15 @@ export class EventBusService {
   }
 }
 
+// who will use this service 
+// ProductComponent : 
+// the component product is the one responsible for communicating with the backend
+// so this component should observe events coming from other components via the EventBus and react to them
+// steps
+// Inject the EventBusService into the smart component's constructor.
+// Subscribe to the event stream (usually an Observable like event$) within the component, typically in ngOnInit.
+// Route each event to its respective method based on the event type or data content.
+
+
+// this servoce will be injected into the components that will publish events
+// product nav bar , published events for fetching data : - get all products - get selected products - get available products - search
