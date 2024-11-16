@@ -1,8 +1,6 @@
 import {
   Component,
-  EventEmitter,
   Input,
-  Output,
   ViewEncapsulation,
 } from '@angular/core';
 import { Product } from '../../../../models/product.model';

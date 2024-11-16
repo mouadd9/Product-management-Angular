@@ -1,6 +1,8 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { ProductsActions } from '../../../ngrx/products.actions';
 
 @Component({
   selector: 'app-products-nav-bar',
@@ -10,7 +12,7 @@ import { RouterModule } from '@angular/router';
   styleUrl: './products-nav-bar.component.css',
 })
 export class ProductsNavBarComponent {
-  constructor() {}
+  constructor(private store: Store<any>) {}
   productName = new FormControl('');
 
   //@Output() eventEmitter: EventEmitter<ActionEvent> =new EventEmitter<ActionEvent>(); // this is an event emitter , we will use it to send events to the parent component
@@ -24,6 +26,8 @@ export class ProductsNavBarComponent {
   
   }
   getAllProducts() {
+    console.log('Dispatching getAllProducts action');
+    this.store.dispatch(ProductsActions.getAllProducts())
     
   }
   getAvailableProducts() {

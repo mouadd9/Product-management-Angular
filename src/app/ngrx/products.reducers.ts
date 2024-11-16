@@ -1,8 +1,8 @@
 // here we will define reducers that will return a new state to the store and react to actions
 
-import { Action, ActionType } from '@ngrx/store';
+import { Action } from '@ngrx/store';
 import { Product } from '../models/product.model';
-import { ProductsActions, ProductsActionTypes } from './products.actions';
+import { ProductsActions } from './products.actions';
 
 // here we will modify the state
 // here we define what the state will look like
@@ -31,18 +31,25 @@ const initialState: ProductsState = {
   errorMessage: '',
 };
 
-// we should a function , that takes as input , the current state , and then the ACTION dispatched
+
+// when we dispatch an action , using this syntax : 
+// this.store.dispatch(ProductsActions.getAllProducts());
+// ProductsActions.getAllProducts() --> generates an action object
+
+// our reducer will take in this action ad argument 
+// and we will compare action.type with the different types we declared
+// using the createActionsGroup 
 
 export function productsReducer(state: ProductsState = initialState , action: Action ): ProductsState {
   switch (action.type) {
-    case ProductsActionTypes.GET_ALL_PRODUCTS:
+    case ProductsActions.getAllProducts.type :
         return {... state , dataState : ProductsStateEnum.LOADING} ; 
       break;
-    case ProductsActionTypes.GET_ALL_PRODUCTS_ERROR:
-        return {...state, dataState : ProductsStateEnum.ERROR, errorMessage : (<ProductsActions>action).payload }
+    case ProductsActions.getAllProductsError.type :
+        return {...state, dataState : ProductsStateEnum.ERROR, errorMessage : (action as any).payload }
       break;
-    case ProductsActionTypes.GET_ALL_PRODUCTS_SUCCESS:
-        return {...state, dataState : ProductsStateEnum.LOADED, products : (<ProductsActions>action).payload }
+    case ProductsActions.getAllProductsSuccess.type :
+        return {...state, dataState : ProductsStateEnum.LOADED, products : (action as any).payload }
       break;
     default: return {...state} 
       break;

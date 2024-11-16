@@ -1,6 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Product } from '../../../models/product.model';
 import { CommonModule } from '@angular/common';
 import { ProductItemComponent } from './product-item/product-item.component';
 import { ProductsState, ProductsStateEnum } from '../../../ngrx/products.reducers';
