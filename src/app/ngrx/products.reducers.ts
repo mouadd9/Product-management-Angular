@@ -1,5 +1,6 @@
 // here we will define reducers that will return a new state to the store and react to actions
 
+import { Action, ActionType } from '@ngrx/store';
 import { Product } from '../models/product.model';
 import { ProductsActions, ProductsActionTypes } from './products.actions';
 
@@ -32,18 +33,18 @@ const initialState: ProductsState = {
 
 // we should a function , that takes as input , the current state , and then the ACTION dispatched
 
-export function productsReducer( action: ProductsActions, state: ProductsState = initialState ): ProductsState {
+export function productsReducer(state: ProductsState = initialState , action: Action ): ProductsState {
   switch (action.type) {
     case ProductsActionTypes.GET_ALL_PRODUCTS:
         return {... state , dataState : ProductsStateEnum.LOADING} ; 
       break;
     case ProductsActionTypes.GET_ALL_PRODUCTS_ERROR:
-        return {...state, dataState : ProductsStateEnum.ERROR, errorMessage : action.payload }
+        return {...state, dataState : ProductsStateEnum.ERROR, errorMessage : (<ProductsActions>action).payload }
       break;
     case ProductsActionTypes.GET_ALL_PRODUCTS_SUCCESS:
-        return {...state, dataState : ProductsStateEnum.LOADED, products : action.payload }
+        return {...state, dataState : ProductsStateEnum.LOADED, products : (<ProductsActions>action).payload }
       break;
-    default: return {...state} ; 
+    default: return {...state} 
       break;
   }
 };  

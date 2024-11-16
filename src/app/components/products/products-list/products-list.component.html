@@ -32,7 +32,7 @@
         <tbody>
             <!-- this constitutes one product (here we also pass data to the sub component), it should be duplicated for each product -->
             <app-product-item 
-            *ngFor="let product of result.data" 
+            *ngFor="let product of result.products" 
             [product]="product" 
             style="display: contents;">
           </app-product-item> 

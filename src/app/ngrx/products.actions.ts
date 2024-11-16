@@ -25,12 +25,12 @@ export enum ProductsActionTypes {
 
 export class GetAllProductsAction implements Action {
   readonly type: ProductsActionTypes = ProductsActionTypes.GET_ALL_PRODUCTS;
-  constructor(public payload: Product[]) {}
+  constructor(public payload: any) {}
 }
 export class GetAllProductsSuccess implements Action {
   readonly type: ProductsActionTypes =
     ProductsActionTypes.GET_ALL_PRODUCTS_SUCCESS;
-  constructor(public payload: any) {}
+  constructor(public payload: Product[]) {}
   // now imagine an action dispatched when the API call that gets all products returns an OK status
   // we will get a response in the body of the request
   // when creating the action GET_ALL_PRODUCTS_SUCCESS we should add it to the payload

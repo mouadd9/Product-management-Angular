@@ -1,12 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from '../../../models/product.model';
-import {
-  AppDataState,
-  DataStateEnum,
-} from '../../../state/product.state';
 import { CommonModule } from '@angular/common';
 import { ProductItemComponent } from './product-item/product-item.component';
+import { ProductsState, ProductsStateEnum } from '../../../ngrx/products.reducers';
 
 @Component({
   selector: 'app-products-list',
@@ -18,8 +15,8 @@ import { ProductItemComponent } from './product-item/product-item.component';
 export class ProductsListComponent {
   // so this is a child component that will get data from the parent component
   // we will get an array of products
-  readonly DataStateEnum = DataStateEnum;
-  @Input() productsInput$: Observable<AppDataState<Product[]>> | null = null; // here products$ will hold an Observable that emits the DataState
+  readonly DataStateEnum = ProductsStateEnum;
+  @Input() productsInput$: Observable<ProductsState> | null = null; // here products$ will hold an Observable that emits the DataState
 
   // now to emit data to the parent component we use the eventEmitter
 

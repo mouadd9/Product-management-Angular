@@ -8,6 +8,8 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 
 import { routes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
+import { productsReducer } from './ngrx/products.reducers';
+import { ProductsEffects } from './ngrx/products.effects';
 
 /*
 The root bootstrap configuration in main.ts tells Angular 
@@ -24,8 +26,8 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(),
     provideRouter(routes),
-    provideStore(), // here we should specify the reducers
-    provideEffects([]), // here we should add an array of effects
+    provideStore({products : productsReducer}), // here we should specify the reducers
+    provideEffects([ProductsEffects]), // here we should add an array of effects
     provideStoreDevtools({})
   ],
   
