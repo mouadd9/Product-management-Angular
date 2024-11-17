@@ -26,9 +26,17 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(),
     provideRouter(routes),
-    provideStore({ products: productsReducer }), // Reducers
+    // here we map the slice of our state with its reducer (provider)
+    // products is an Observable offered by the store that wrappes around a stream of "ProductsState" sent by the reducer
+
+    provideStore({ products: productsReducer }), 
     provideEffects([ProductsEffects]), // Effects
     provideStoreDevtools({}),
   ],
 };
 
+/*
+By using provideStore, you integrate productsReducer into the global store.
+Any changes triggered by dispatched actions flow through the productsReducer,
+updating the state slice products and emitting the updated state as a stream.
+*/

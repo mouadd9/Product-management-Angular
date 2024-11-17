@@ -44,14 +44,12 @@ export class ProductsComponent implements OnInit {
   constructor(
     private store: Store<any>
   ) {
-    // here we will pipe into the data stream, for the store and we wil only return a specific type of observable
+    // we select the specific state slice we need from the store 
     this.productsState$ = this.store.pipe(select((state) => state.products ));
-    // this.productsState$ is an observable that wrapped around the product state stream
   }
 
   ngOnInit(): void {
-    
-   
+
     
   }
 

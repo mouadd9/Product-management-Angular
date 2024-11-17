@@ -23,6 +23,11 @@ export class ProductsNavBarComponent {
    
   }
   getSelectedProducts() {
+    // this.store.dispatch(takes in an action)
+    // ProductsActions is a group of action 
+    // ProductsActions.getSelectedProducts.type is the type of the action 
+    // while this : ProductsActions.getSelectedProducts() creates an object {type : .. , paylaod : .. } = action
+    this.store.dispatch(ProductsActions.getSelectedProducts())
   
   }
   getAllProducts() {

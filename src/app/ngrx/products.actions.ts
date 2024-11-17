@@ -7,7 +7,10 @@ export const ProductsActions = createActionGroup({
   events: {
     getAllProducts : emptyProps(),
     getAllProductsSuccess : props<{payload : Product[]}>(),
-    getAllProductsError : props<{payload : string}>()
+    getAllProductsError : props<{payload : string}>(), 
+    getSelectedProducts : emptyProps(),
+    getSelectedProductsSuccess : props<{payload : Product[]}>(),
+    getSelectedProductsError : props<{payload : string}>() 
   }
 })
 

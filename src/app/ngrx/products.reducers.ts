@@ -51,6 +51,15 @@ export function productsReducer(state: ProductsState = initialState , action: Ac
     case ProductsActions.getAllProductsSuccess.type :
         return {...state, dataState : ProductsStateEnum.LOADED, products : (action as any).payload }
       break;
+    case ProductsActions.getSelectedProducts.type :
+        return {... state , dataState : ProductsStateEnum.LOADING} ; 
+      break;
+    case ProductsActions.getSelectedProductsError.type :
+        return {...state, dataState : ProductsStateEnum.ERROR, errorMessage : (action as any).payload }
+      break;
+    case ProductsActions.getSelectedProductsSuccess.type :
+        return {...state, dataState : ProductsStateEnum.LOADED, products : (action as any).payload }
+      break;
     default: return {...state} 
       break;
   }
