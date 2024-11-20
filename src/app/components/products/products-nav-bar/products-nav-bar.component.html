@@ -1,25 +1,20 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
-    <div class="container-fluid">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <button class="btn btn-outline-success me-2" type="button" (click)="getAllProducts()">All</button>
-        </li>
-        <li class="nav-item">
-          <button class="btn btn-outline-success me-2" type="button" (click)="getSelectedProducts()">Selected</button>
-        </li>
-        <li class="nav-item">
-          <button class="btn btn-outline-success me-2" type="button" (click)="getAvailableProducts()">Available</button>
-        </li>
-        <li class="nav-item">
-          <a  routerLink="/form" ><button class="btn btn-outline-success me-2" type="button" >Form</button></a>
-        </li>
-      </ul> 
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+  <div class="container-fluid d-flex justify-content-between">
+      <div class="btn-group" role="group">
+          <button class="btn btn-primary me-2" type="button" (click)="getAllProducts()">All</button>
+      
+          <button class="btn btn-primary me-2" type="button" (click)="getSelectedProducts()">Selected</button>
+    
+          <button class="btn btn-primary me-2" type="button" (click)="getAvailableProducts()">Available</button>
+     
+          <a routerLink="/form" class="btn btn-primary me-2" role="button">Form</a>
+      </div>
   
       <!-- Search form -->
-      <form class="d-flex" (ngSubmit)="onSubmit()">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" [formControl]="productName">
-        <button class="btn btn-outline-info" type="submit" >
-          <i class="fa fa-search"></i> <!-- Make sure FontAwesome is available for icons -->
+      <form class="d-flex gp-2" [formGroup]="formGroupV2" (ngSubmit)="onSearch()">
+        <input class="form-control me-2" type="search" placeholder="Search" formControlName="productName" >
+        <button class="btn btn-outline-info btn-sm" type="submit" [disabled]="formGroupV2.invalid">
+          <i class="fa fa-search"></i> <!-- Make sure FontAwesome is available for icons -->        
         </button>
       </form>
     </div>

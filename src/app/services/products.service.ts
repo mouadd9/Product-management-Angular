@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'; 
 import { Product } from '../models/product.model';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { environment } from '../environments/environment';
 
 // we should use @Injectable so it can be injected into components
@@ -30,12 +30,19 @@ export class ProductsService {
   }
 
   searchProduct(keyword: string | null): Observable<Product[]> {
-    return this.http.get<Product[]>(this.host + '/products?name=' + keyword)
+    return this.http.get<Product[]>(this.host + '/products').pipe(
+      map((products) => 
+        products.filter((product) => 
+          product.name.toLowerCase().includes(keyword?.toLowerCase() || '')
+        )
+      )
+    );
   }
 
   select(p : Product) : Observable<Product> {
-    p.selected = !p.selected ; 
-    return this.http.put<Product>(this.host + '/products/' + p.id , p );
+    let updatedProduct : Product = {...p, selected : !p.selected}
+   
+    return this.http.put<Product>(this.host + '/products/' + p.id , updatedProduct );
   }
 
   createProduct(p:Product) : Observable<Product> {

@@ -1,20 +1,28 @@
 {
   "products": [
     {
-      "id": "1",
+      "id": "2",
       "name": "Computer",
-      "price": 4300,
-      "quantity": 600,
+      "price": 10300,
+      "quantity": 700,
       "selected": false,
       "available": true
     },
     {
-      "id": "2",
-      "name": "Printer",
-      "price": 300,
-      "quantity": 100,
-      "selected": true,
-      "available": true
+      "id": "b55e",
+      "name": "test",
+      "price": 0,
+      "quantity": 0,
+      "available": true,
+      "selected": false
+    },
+    {
+      "id": "9909",
+      "name": "test",
+      "price": 0,
+      "quantity": 0,
+      "available": true,
+      "selected": true
     }
   ]
 }
