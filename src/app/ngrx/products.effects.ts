@@ -28,6 +28,7 @@ export class ProductsEffects {
   // for each action of the desired type we send an api request , and we flatten all the observables returned into one observable of type Action 
   searchProduct$ : Observable<Action>;
   createProduct$ : Observable<Action>;
+  newProduct$ : Observable<Action>;
   constructor(
     private actions$: Actions, // here we inject the Observable stream of all actions dispatched
     private productsService: ProductsService // here we inject the Products Service 
@@ -146,5 +147,14 @@ export class ProductsEffects {
         )
       })
     ))
+
+    this.newProduct$ = createEffect(()=>
+      this.actions$.pipe(
+        ofType(ProductsActions.newProduct), // normally after this we take in the payload and return a success action with tha data to populate the form
+        map(() => ProductsActions.newProductSuccess() )
+      ))
   }
+
+  
+  
 }

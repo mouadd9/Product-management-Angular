@@ -44,7 +44,9 @@ export class ProductsComponent implements OnInit {
   constructor(
     private store: Store<any>
   ) {
-    // we select the specific state slice we need from the store 
+    // we use pipe in order to manipulate the events streamed before returning an observable
+    // we use select() that takes in the state and returns the needed slice of the state
+    // now this.store() will not return an observable of the entire state but rather an observable of only the slice
     this.productsState$ = this.store.pipe(select((state) => state.products ));
   }
 

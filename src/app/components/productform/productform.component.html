@@ -1,12 +1,10 @@
-<div class="container mt-5" *ngIf="this.myForm">
-
-    
-    <div class="row justify-content-center">
+<div class="container mt-5" *ngIf="this.productsFormGroup">
+    <div class="row justify-content-center" *ngIf="this.productsState === ProductsStateEnum.NEW">
         <div class="col-md-6">
             <div class="card p-3">
                 <h2>New Product</h2>
                 <div class="card-body">
-                    <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+                    <form [formGroup]="productsFormGroup" (ngSubmit)="onSubmit()">
                         <div class="form-group">
                             <label for="name">Name</label>
                             <input id="name" formControlName="name"
@@ -38,10 +36,18 @@
                         </div>
 
                         <button type="submit" class="btn btn-primary"
-                            [disabled]="myForm.invalid">Submit</button>
+                            [disabled]="productsFormGroup.invalid">Submit</button>
                     </form>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row justify-content-center" *ngIf="this.productsState === ProductsStateEnum.LOADED">
+        <button (click)="NewProduct()">Click here to add a new product</button>
+
+    </div>
+
+    <div class="row justify-content-center" *ngIf="this.productsState === ProductsStateEnum.LOADING">
+        ......
     </div>
 </div>

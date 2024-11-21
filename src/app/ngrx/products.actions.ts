@@ -33,6 +33,12 @@ export const ProductsActions = createActionGroup({
     searchProductSuccess: props<{payload : Product[]}>(),
     searchProductError: props<{payload : string}>(),
 
+    // actions for form management
+    newProduct: emptyProps(),
+    newProductSuccess: emptyProps(),
+    newProductError: emptyProps(),
+
+
     // actions to create a product
     createProduct: props<{payload : Product}>(),
     createProductSuccess: props<{payload : Product}>(),

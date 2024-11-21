@@ -23,6 +23,14 @@
       "quantity": 0,
       "available": true,
       "selected": true
+    },
+    {
+      "id": "122a",
+      "name": "uhiu",
+      "price": 0,
+      "quantity": 0,
+      "available": true,
+      "selected": true
     }
   ]
 }

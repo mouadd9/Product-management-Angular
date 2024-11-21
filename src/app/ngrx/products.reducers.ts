@@ -14,6 +14,7 @@ export enum ProductsStateEnum {
   LOADED = 'Loaded',
   ERROR = 'Error',
   INITIAL = 'Initial',
+  NEW = 'New'
 }
 
 // now that we defined the different phases that our state can go through
@@ -116,7 +117,7 @@ export function productsReducer(state: ProductsState = initialState , action: Ac
   break
 
   case ProductsActions.searchProductError.type : 
-    return {...state, dataState: ProductsStateEnum.ERROR  , errorMessage: (action as any).payload}
+    return {...state, dataState: ProductsStateEnum.ERROR, errorMessage: (action as any).payload}
   break
 
   // cases for creating a product 
@@ -135,6 +136,20 @@ export function productsReducer(state: ProductsState = initialState , action: Ac
   case ProductsActions.createProduct.type : 
   return {...state, dataState: ProductsStateEnum.ERROR, errorMessage: (action as any).payload }
   break 
+
+  // new Products Actions
+  case ProductsActions.newProduct.type : 
+      return {...state, dataState: ProductsStateEnum.LOADING} // this means we are loading the form data
+  break
+
+  case ProductsActions.newProductSuccess.type : 
+  
+    return {...state, dataState: ProductsStateEnum.NEW}// the form is ready to be built 
+  break
+
+  case ProductsActions.newProductError.type : 
+    return {...state, dataState: ProductsStateEnum.ERROR}
+  break
     default: return {...state} 
       break;
   }
